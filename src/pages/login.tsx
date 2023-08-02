@@ -42,7 +42,6 @@ export const Login = () => {
       login: { error, ok, token },
     } = data;
     if (ok && token) {
-      alert("Account Created! Log in now!");
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
