@@ -72,7 +72,6 @@ export const MyRestaurant = () => {
       },
     }
   );
-  console.log(data);
   return (
     <div>
       <Helmet>

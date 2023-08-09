@@ -13,4 +13,8 @@
   @apply text-emerald-600 hover:underline;
 }
 
+.btn {
+  @apply text-lg font-medium focus:outline-none text-white py-4 transition-colors bg-emerald-500 hover:bg-emerald-600;
+}
+
 @tailwind utilities;
