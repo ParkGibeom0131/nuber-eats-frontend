@@ -1,9 +1,10 @@
-import { gql, useQuery } from "@apollo/client";
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { gql, useQuery, useSubscription } from "@apollo/client";
+import React, { useEffect } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import {
   MyRestaurantQuery,
   MyRestaurantQueryVariables,
+  PendingOrdersSubscription,
 } from "../../__generated__/graphql";
 import { Dish } from "../../components/dish";
 import { Helmet } from "react-helmet-async";
@@ -56,6 +57,25 @@ export const MY_RESTAURANT_QUERY = gql`
   }
 `;
 
+const PENDING_ORDERS_SUBSCRIPTION = gql`
+  subscription pendingOrders {
+    pendingOrders {
+      id
+      status
+      total
+      driver {
+        email
+      }
+      customer {
+        email
+      }
+      restaurant {
+        name
+      }
+    }
+  }
+`;
+
 interface IParams {
   id: string;
 }
@@ -72,6 +92,18 @@ export const MyRestaurant = () => {
       },
     }
   );
+  const { data: subscriptionData } = useSubscription<PendingOrdersSubscription>(
+    PENDING_ORDERS_SUBSCRIPTION
+  );
+  console.log(subscriptionData);
+  const history = useHistory();
+  useEffect(() => {
+    if (subscriptionData?.pendingOrders.id) {
+      history.push(`/orders/${subscriptionData.pendingOrders.id}`);
+    }
+    // subscriptionData가 변할 때 마다 useEffect가 다시 실행된다는 의미
+  }, [subscriptionData, history]);
+
   return (
     <div>
       <Helmet>
