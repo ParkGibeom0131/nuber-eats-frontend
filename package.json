@@ -19,6 +19,7 @@
     "@types/react-router-dom": "^5.3.3",
     "apollo": "^2.34.0",
     "axios": "^1.4.0",
+    "cross-env": "^7.0.3",
     "google-map-react": "^2.2.1",
     "graphql": "^16.7.1",
     "graphql-subscriptions": "^2.0.0",
@@ -35,12 +36,13 @@
     "ws": "^8.13.0"
   },
   "scripts": {
+    "tailwind:prodbuild": "cross-env NODE_ENV=production npm run tailwind:build",
     "tailwind:build": "tailwind build ./src/styles/tailwind.css -o ./src/styles/styles.css",
     "start": "npm run generate & npm run tailwind:build & react-scripts start",
     "apollo:codegen": "rimraf src/__generated__ && client:codegen src/__generated__ --target=typescript --outputFlat",
     "generate": "graphql-codegen",
     "build": "CI=false react-scripts build",
-    "prebuild": "npm run tailwind:build",
+    "prebuild": "npm run tailwind:prodbuild",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
