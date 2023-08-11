@@ -17,7 +17,10 @@ export const authTokenVar = makeVar(token);
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:4000/graphql",
+    url:
+      process.env.NODE_ENV === "production"
+        ? `wss://nuber-eats-backend-part-d3b1e1b6613a.herokuapp.com/graphql`
+        : `ws://localhost:4000/graphql`,
     connectionParams: {
       "x-jwt": authTokenVar() || "",
     },
@@ -25,7 +28,10 @@ const wsLink = new GraphQLWsLink(
 );
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri:
+    process.env.NODE_ENV === "production"
+      ? `https://nuber-eats-backend-part-d3b1e1b6613a.herokuapp.com/graphql`
+      : `http://localhost:4000/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
