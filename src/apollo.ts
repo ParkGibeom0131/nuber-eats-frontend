@@ -14,8 +14,6 @@ import { getMainDefinition } from "@apollo/client/utilities";
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
 export const isLoggedInVar = makeVar(Boolean(token));
 export const authTokenVar = makeVar(token);
-console.log("is token", token);
-console.log("is authTokenVar", authTokenVar());
 
 const wsLink = new GraphQLWsLink(
   createClient({
