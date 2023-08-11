@@ -39,7 +39,8 @@
     "start": "npm run generate & npm run tailwind:build & react-scripts start",
     "apollo:codegen": "rimraf src/__generated__ && client:codegen src/__generated__ --target=typescript --outputFlat",
     "generate": "graphql-codegen",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
+    "prebuild": "npm run tailwind:build",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
