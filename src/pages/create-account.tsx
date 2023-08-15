@@ -12,7 +12,7 @@ import {
   UserRole,
 } from "../__generated__/graphql";
 
-const CREATE_ACCOUNT_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok
@@ -42,7 +42,7 @@ export const CreateAccount = () => {
   const history = useHistory();
   const onCompleted = (data: CreateAccountMutation) => {
     const {
-      createAccount: { ok, error },
+      createAccount: { ok },
     } = data;
 
     if (ok) {

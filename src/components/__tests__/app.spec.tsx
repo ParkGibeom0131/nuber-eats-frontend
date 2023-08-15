@@ -17,14 +17,15 @@ jest.mock("../../routers/logged-in-router", () => {
 // it() => individual test
 describe("<App />", () => {
   it("renders LoggedOutRouter", () => {
-    const { getByText } = render(<App />);
-    //getByText("logged-out");
+    render(<App />);
+    screen.getByText("logged-out");
   });
   it("renders LoggedInRouter", async () => {
-    const { getByText } = render(<App />);
+    render(<App />);
     await waitFor(() => {
       isLoggedInVar(true);
     });
-    //getByText("logged-in");
+    render(<App />);
+    screen.getByText("logged-in");
   });
 });
